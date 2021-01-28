@@ -1,0 +1,155 @@
+package 第一题;
+/*1.定义一个Test01类
+ 2.在类中定义主方法
+ 3.在主方法中,使用输出语句,输出如下变量
+ (1)整数变量i1: 88, i2:-88
+ (2)小数变量d: 88.888
+ (3)字符变量ch1: 'A', ch2:'8'
+ (4)布尔变量flag1: true, flag2:false*/
+public class Test01 {
+ public static void main(String[] args) {
+  int i1=88;
+  int i2=-88;
+  double d=88.888;
+  char ch1='A';
+  char ch2='8';
+  boolean flag1=true;
+  boolean flag2=false;
+  System.out.println(i1);
+  System.out.println(i2);
+  System.out.println(d);
+  System.out.println(ch1);
+  System.out.println(ch2);
+  System.out.println(flag1);
+  System.out.println(flag2);
+ }
+}
+
+package 第二题;
+/*1.定义一个Test02类
+ 2.在类中定义主方法
+ 3.在主方法中,使用输出语句,输出一段话
+ 4.输出效果如下:
+ 好好学习~
+ 天天向上~
+ 键盘敲烂,月薪过万~~*/
+public class Test02 {
+ public static void main(String[] args) {
+  System.out.println("好好学习~");
+  System.out.println("天天向上~");
+  System.out.println("键盘敲烂，月新番过万~");
+ }
+}
+
+package 第三题;
+/*1.定义一个类,类名Test03
+ 2.在类中定main方法
+ 3.在main方法中,使用输出语句输出如下图形:*/
+public class Test03 {
+ public static void main(String[] args) {
+  System.out.println("   *");
+  System.out.println("  * *");
+  System.out.println(" *   *");
+  System.out.println("*     *");
+  System.out.println(" *   *");
+  System.out.println("  * *");
+  System.out.println("   *");
+ }
+}
+
+package 第四题;
+/*1.定义一个类,类名Test04
+ 2.在类中定main方法
+ 3.在main方法中,使用输出语句输出如下图形.
+ {@}
+ /|\
+ |
+ 4.提示: “\”在java中是转移符,如果要在字符串中写一个”\”,你需要写为”\\”
+ */
+public class Test04 {
+ public static void main(String[] args) {
+  System.out.println("{@}");
+  System.out.println("/|\\");
+  System.out.println(" |");
+ }
+}
+
+package 第五题;
+/*1.定义一个类,类名Test05
+ 2.在类中定main方法
+ 3.在main方法中,使用输出语句输出如下图形:
+
+ *
+ **
+ ***
+ **** */
+public class Test05 {
+ public static void main(String[] args) {
+  System.out.println("*");
+  System.out.println("**");
+  System.out.println("***");
+  System.out.println("****");
+ }
+}
+
+找出以下代码的错误，并修改
+	public class Task07_01 {
+		public static void main(String[] args) {
+			int a;//未定义具体数值
+			System.out.println(a);
+			{
+				int c = 20;
+				System.out.println(c);
+			}
+			 c = 30;//出了定义范围，应该在前面加上int
+			System.out.println(c);
+		}
+	}
+	
+	public class Task07_02 {
+		public static void main(String[] args) {
+			int x = 2;
+			{
+				int y = 6;
+				System.out.println("x is " + x);
+				System.out.println("y is " + y);
+			}
+			 y = x;//同样的错误，出了定义范围，所以在前面加上int
+			System.out.println("x is " + x);
+		}
+	}
+
+package 第六题;
+/*1.定义一个类Test06类
+2.在类中定main方法
+3.在main方法中,定义字符串变量 s , 并把值初始化为: “不忘初心,方得始终”
+4.输出变量s.
+5.提示: 字符串的数据类型是 String .*/
+public class Test06 {
+ public static void main(String[] args) {
+  String s="不忘初心，方得始终";
+  System.out.println(s);
+ }
+}
+
+byte b1=3,b2=4,b;
+		b=b1+b2;//错误，因为3和4是整型，需要强转
+		b=3+4;
+		哪句是编译失败的呢？为什么呢？
+
+package 第七题;
+/*在控制台输出以下内容：
+ 姓名：王洋
+ 年龄：22
+ 性别：男
+ 职业：学生
+ 住址：北京市昌平区北七家镇宏福科技园修正大厦*/
+public class Test07 {
+ public static void main(String[] args) {
+  System.out.println("姓名：王洋");
+  System.out.println("年龄：22");
+  System.out.println("性别：男");
+  System.out.println("职业：学生");
+  System.out.println("住址：北京市昌平区北七家镇宏福科技园修正大厦");
+ }
+}
