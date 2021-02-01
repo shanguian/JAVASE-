@@ -1,0 +1,331 @@
+package 第一题;
+
+import java.util.Scanner;
+/*键盘录入学生考试成绩，判断学生等级:
+90-100	优秀
+80-90	好
+70-80	良
+60-70	及格
+			60以下	不及格
+			1.从键盘上录入一个学生的考试成绩:
+		2.使用if语句的第三种格式判断考试成绩属于哪个范围,
+		然后确定成绩的等级并打印:
+			*/
+public class Test01 {
+ public static void main(String[] args) {
+  Scanner sc=new Scanner(System.in);
+  int score=sc.nextInt();
+  if(score>=90&&score<=100){
+   System.out.println("优秀");
+  }else if(score>=80&&score<90){
+   System.out.println("好");
+  }else if (score>=70&&score<80){
+   System.out.println("良");
+  }else if(score>=60&&score<70){
+   System.out.println("及格");
+  }else if(score<60){
+   System.out.println("不及格");
+  }
+ }
+}
+
+package 第二题;
+//使用for循环,求出1-100之间的奇数之和.
+/*1.定义一个变量,用来记录奇数的累加和;
+2.for循环得到1到100之间的每个数字;
+3.在for循环里面,判断这个数字是否为奇数;
+4.如果为奇数,就与变量累加;
+5.for循环结束后,打印累加和;*/
+public class Test02 {
+ public static void main(String[] args) {
+  int count=0;
+  for(int i=1;i<=100;i++){
+   if(i%2!=0){
+    count+=i;
+   }
+  }
+  System.out.println(count);
+ }
+}
+
+package 第三题;
+//求出1到100之间的既是3的倍数又是5倍数的数字之和.
+/*1.定义一个变量,记录累加求和
+2.循环遍历1到100之间的每个数字
+3.再循环中判断该数是否为既是3的倍数又是5倍数
+4.如果满足条件对该数进行累加求和
+6.循环结束后打印求和的变量*/
+public class Test03 {
+ public static void main(String[] args) {
+  int sum=0;
+  for(int i=1;i<=100;i++){
+   if(i%3==0&&i%5==0){
+    sum+=i;
+   }
+  }
+  System.out.println(sum);
+ }
+}
+
+package 第四题;
+
+import java.util.Scanner;
+/*从键盘上录入一个大于100的三位数,求出100到该数字之间满足如下要求的数字之和:
+		1.数字的个位数不为7;
+		2.数字的十位数不为5;
+		3.数字的百位数不为3;
+
+		1.从键盘上录入一个三位数;
+		2.定义一个变量,用来记录满足条件的数字累加之和;
+		3.使用for循环获取100到该数字之间的所有数字;
+		4.得到当前拿到的这个数的个位数,十位数,百位数;
+		5.判断个位数不为7,十位数不为5,百位数不为3;
+		6.如果满足条件就累加;
+		7.循环结束后打印累加之和;*/
+public class Test04 {
+ public static void main(String[] args) {
+  Scanner sc=new Scanner(System.in);
+  int x=sc.nextInt();
+  int sum=0;
+  for(int i=100;i<=x;i++){
+   int ge=i%10;
+   int shi=i/10%10;
+   int bai=i/100%10;
+   if(ge!=7&&shi!=5&&bai!=3){
+    sum+=i;
+    System.out.println(i);
+   }
+  }
+  System.out.println(sum);
+ }
+}
+
+package 第五题;
+
+import java.util.Scanner;
+/*请按如下要求编写程序,打印菜单:
+		1.从键盘上录入一个1到5的数字;
+		2.当数字为1时打印菜单"新建";
+		当数字为2时打印菜单"打开文件";
+		当数字为3时打印菜单"保存";
+		当数字为4时打印菜单"刷新";
+		当数字为5时打印菜单"退出",并退出程序;
+		此行代码可以终止java程序运行: System.exit(0);
+
+		1.从键盘上录入一个三位数;
+		2.使用switch语句判断录入的数字为哪个菜单编号,并打印对应的菜单名称;
+		3.使用while循环,重复执行1,2两个步骤;*/
+public class Test05 {
+ public static void main(String[] args) {
+  while (true) {
+   Scanner sc = new Scanner(System.in);
+   int n = sc.nextInt();
+   switch (n) {
+    case 1:
+     System.out.println("新建");
+     break;
+    case 2:
+     System.out.println("打开文件");
+     break;
+    case 3:
+     System.out.println("保存");
+     break;
+    case 4:
+     System.out.println("刷新");
+     break;
+    case 5:
+     System.out.println("结束java程序的运行");
+     System.exit(0);
+     break;
+   }
+   }
+  }
+ }
+
+package 第六题;
+
+import java.util.Scanner;
+/*1.根据工龄(整数)给员工涨工资(整数),工龄和基本工资通过键盘录入
+	2.涨工资的条件如下：
+		[10-15)     +5000
+		[5-10)      +2500
+		[3~5)       +1000
+		[1~3)       +500
+		[0~1)       +200
+	3.如果用户输入的工龄为10，基本工资为3000，程序运行后打印格式"您目前工作了10年，
+	基本工资为 3000元, 应涨工资 5000元,涨后工资 8000元"*/
+public class Test06 {
+ public static void main(String[] args) {
+  Scanner scanner=new Scanner(System.in);
+  System.out.println("请输入员工的工龄：");
+  int age=scanner.nextInt();
+  System.out.println("请输入员工的基本工资：");
+  int money=scanner.nextInt();
+  int mongy2=0;
+  if(age>=10&&age<15){
+   mongy2=money+5000;
+   System.out.println("您目前工作了"+age+"年，基本工资为"+money+"应涨工资"+5000+"涨后工资为"+mongy2);
+  }else if(age>=5&&age<10){
+   mongy2=money+2500;
+   System.out.println("您目前工作了"+age+"年，基本工资为"+money+"应涨工资"+2500+"涨后工资为"+mongy2);
+  }else if(age>=3&&age<5){
+   mongy2=money+1000;
+   System.out.println("您目前工作了"+age+"年，基本工资为"+money+"应涨工资"+1000+"涨后工资为"+mongy2);
+  }else if(age>=1&&age<3){
+   mongy2=money+500;
+   System.out.println("您目前工作了"+age+"年，基本工资为"+money+"应涨工资"+500+"涨后工资为"+mongy2);
+  }else if(age==0&&age<1){
+   mongy2=money+200;
+   System.out.println("您目前工作了"+age+"年，基本工资为"+money+"应涨工资"+200+"涨后工资为"+mongy2);
+  }
+ }
+}
+
+看程序,完成以下问题
+	public class Task06{
+		public static void main(String[] args) {
+			for(int x=1; x<=10; x++) {
+				if(x%3==0) {
+					//()在此处填写代码
+				}
+				System.out.println("Java基础班");
+			}
+		}
+	}
+	问题:
+		1.想在控制台输出2次:"Java基础班"   括号()里面应该填写什么?break
+		2.想在控制台输出7次:"Java基础班"   括号()里面应该填写什么?counite
+		3.想在控制台输出13次:"Java基础班"   括号()里面应该填写什么?System.out.println("Java基础班");
+
+package 第七题;
+
+import java.util.Scanner;
+/*分析以下需求，并用代码实现：
+	1.功能描述：模拟计算器功能，对键盘录入的两个int类型的数据进行加、减、乘、除的运算，并打印运算结果
+	2.要求：
+		(1)键盘录入三个整数,其中前两个整数代表参加运算的数据，
+			第三个整数为要进行的运算(0:表示加法运算,1:表示减法运算,2:表示乘法运算,3:表示除法运算)
+		(2)使用今天所学知识完成功能
+		(3)演示格式如下:
+			请输入第一个整数:30
+			请输入第二个整数:40
+			请输入您要进行的运算(0:表示加法运算,1:表示减法运算,2:表示乘法运算,3:表示除法运算):0
+			控制台输出:30+40=70*/
+public class Test07 {
+ public static void main(String[] args) {
+  Scanner scanner=new Scanner(System.in);
+  System.out.print("请输入第一个整数：");
+  int a=scanner.nextInt();
+  System.out.print("请输入第二个整数：");
+  int b=scanner.nextInt();
+  System.out.print("请输入您要进行的运算(0:表示加法运算,1:表示减法运算,2:表示乘法运算,3:表示除法运算):");
+  int type=scanner.nextInt();
+  double result=0.0;
+  switch (type){
+   case 0:result=a+b;
+    System.out.println(a+"+"+b+"="+result);
+    break;
+   case 1:result=a-b;
+    System.out.println(a+"-"+b+"="+result);
+    break;
+   case 2:result=a*b;
+    System.out.println(a+"*"+b+"="+result);
+    break;
+   case 3:result=a/(b+0.0);
+    System.out.println(a+"/"+b+"="+result);
+    break;
+    default:
+     System.out.println("你输入有误！");
+  }
+ }
+}
+
+package 第八题;
+/*分析以下需求，并用代码实现：
+	1.珠穆朗玛峰高度为8848米，有一张足够大的纸，厚度为0.0001米。
+	2.请问，我折叠多少次，可以折成珠穆朗玛峰的高度。*/
+public class Test08 {
+ public static void main(String[] args) {
+  int count=0;
+  int mh=8848000;
+  int ph=1;
+  while (ph<mh){
+   ph*=2;
+   count++;
+  }
+  System.out.println(count+" "+ph);
+ }
+}
+
+package 第九题;
+
+import java.util.Scanner;
+/*1.键盘录入一个整数给变量x，输出对应的变量y的值
+2.x值和y值的对应关系如下：
+		x<0 y=-1
+		x=0 y=0
+		x>0 y=1
+3.如果用户输入的x的值为2，程序运行后打印格式"x=2,y=1"*/
+public class Test09 {
+ public static void main(String[] args) {
+  Scanner scanner=new Scanner(System.in);
+  int x=scanner.nextInt();
+  int y=0;
+  if(x<0){
+   y=-1;
+   System.out.println(y);
+  }else if(x==0){
+   y=0;
+   System.out.println(y);
+  }else if(x>0){
+   y=1;
+   System.out.println(y);
+   if(x==2){
+    System.out.println("x="+x+",y="+y);
+   }
+  }
+ }
+}
+
+package 第十题;
+import java.util.Scanner;
+//1.键盘录入三个整数，按照从小到大的顺序输出
+//2.如果用户输入的是3 2 1，程序运行后打印格式"按照从小到大排序后的顺序为：1 2 3"
+public class Test10 {
+ public static void main(String[] args) {
+  method05();
+ }
+ public static void method05() {
+  Scanner sc = new Scanner(System.in);
+  System.out.println("请输入第一个整数:");
+  int a = sc.nextInt();
+  System.out.println("请输入第二个整数:");
+  int b = sc.nextInt();
+  System.out.println("请输入第三个整数:");
+  int c = sc.nextInt();
+
+  if (a > b && a > c) {//假如a是最大值
+   if (b > c) {//b是第二大的，c是最小的
+    System.out.println("a=" + a + ",b=" + b + ",c=" + c);
+   } else {//c是第二大的，b是最小的
+    System.out.println("a=" + a + ",c=" + c + ",b=" + b);
+   }
+
+  } else if (b > a && b > c) {//假如b是最大值
+   if (a > c) {//a是第二大的，c是最小的
+    System.out.println("b=" + b + ",a=" + a + ",c=" + c);
+   } else {//c是第二大的，a是最小的
+    System.out.println("b=" + b + ",c=" + c + ",a=" + a);
+   }
+
+  } else if (c > a && c > b) {//假如c是最大值
+   if (a > b) {//a是第二大的，b是最小的
+    System.out.println("c=" + c + ",a=" + a + ",b=" + b);
+   } else {//b是第二大的，a是最小的
+    System.out.println("c=" + c + ",b=" + b + ",a=" + a);
+   }
+  }
+ }
+ }
+
+
