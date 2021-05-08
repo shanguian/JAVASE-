@@ -1,0 +1,724 @@
+*
+ * 随机产生5个范围是[1,100]的整数,把这些数字中所有个位或十位为3的数字打印出来
+ * 
+ * 20 30 50 63 90
+ * 30 63
+ */
+public class Task01 {
+	public static void main(String[] args) {
+		//1. 随机产生5个范围是[1,100]的整数
+		Random r = new Random();
+		//把数字存放到数组中
+		int[] arr = new int[5];
+		for (int i = 0; i < 5; i++) {
+			arr[i] = r.nextInt(100) + 1; //[1,100]
+		}
+		
+		//打印所有的随机数
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print(arr[i] + " ");
+		}
+		System.out.println();
+		
+		//2. 个位或十位为3的数字打印
+		for (int i = 0; i < arr.length; i++) {
+			//获取十位与个位的数字
+			int ge = arr[i] % 10;
+			int shi = arr[i] /10 % 10;
+			if (ge == 3 || shi == 3) {
+				System.out.print(arr[i] + " ");
+			}
+			
+		}
+	}
+}
+
+/*
+ * 计算出5位数的回文数和7位数的回文数相差了多少个
+ */
+public class Task02 {
+	public static void main(String[] args) {
+		//1. 计算出5位数的回文数 有多少个
+		int count5 = get5Count();
+		//2. 计算出7位数的回文数 有多少个
+		int count7 = get7Count();
+		//3. 相差了多少个
+		System.out.println("相差了多少个:" + (count7 - count5));
+	}
+	
+	/*
+	 * 计算出5位数的回文数 有多少个
+	 * 指定方法的名称： get5Count
+	 * 指定方法的参数： 无
+	 * 指定方法的返回值： int
+	 */
+	public static int get5Count(){
+		int count = 0;//记录5位数的回文数个数
+		//12321
+		for (int i = 10000; i <= 99999; i++) {
+			//分别获取个十百千万位的数字
+			int g = i % 10;
+			int s = i / 10 %10;
+			int b = i / 100 % 10;
+			int q = i / 1000 % 10;
+			int w = i / 10000 % 10;
+			if (g==w && s==q) {
+				//5位数的回文数 + 1
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	/*
+	 * 计算出7位数的回文数 有多少个
+	 * 指定方法的名称： get7Count
+	 * 指定方法的参数： 无
+	 * 指定方法的返回值： int
+	 */
+	public static int get7Count(){
+		int count = 0;//记录7位数的回文数个数
+		//1234321
+		for (int i = 1000000; i <= 9999999; i++) {
+			//分别获取个、十、百、千、万、十万、百万位的数字
+			int g = i % 10;
+			int s = i / 10 %10;
+			int b = i / 100 % 10;
+			int q = i / 1000 % 10;
+			int w = i / 10000 % 10;
+			int sw = i / 100000 % 10;
+			int bw = i / 1000000 % 10;
+			if (g==bw && s==sw && b==w) {
+				//7位数的回文数 + 1
+				count++;
+			}
+		}
+		return count;
+	}
+}
+
+/*
+ * 定义一个方法,求出给定的数字在给定int型数组中出现的次数,如果一次没有出现则返回0
+	如:给定数字3 求出3在数组 int[] arr = {3,4,3,5,7,9};中出现的次数 
+ */
+public class Task03 {
+	public static void main(String[] args) {
+		//1.指定要查找的数字
+		int key = 3;
+		//2.指定数组
+		int[] arr = {3,4,3,5,7,9};
+		//3.求出给定的数字在给定int型数组中出现的次数
+		int count = getCount(arr, 3);
+		System.out.println("出现的次数:" + count);
+		
+	}
+	
+	/*
+	 * 求出给定的数字在给定int型数组中出现的次数
+	 * 指定方法的名称： getCount
+	 * 指定方法的参数： int[] arr,  int key
+	 * 指定方法的返回值： int 
+	 */
+	public static int getCount(int[] arr, int key){
+		//1.记录key出现的次数
+		int count = 0;
+		for (int i = 0; i < arr.length; i++) {
+			//比较数组元素与key至是否相同
+			if (arr[i] == key) {
+				//key出现的次数 + 1
+				count++;
+			}
+		}
+		return count;
+	}
+}
+
+/*
+ * 	定义一个方法，查找指定数字在数组中出现的位置(若出现多次，多次打印)
+	如: 	数组[1232]要查找的数是2 则方法内部会打印索引值 1 ,3 
+		数组[1232]要查找的数是5 则方法每部会打印 “数组中没有这个数字”
+ */
+public class Task04 {
+	public static void main(String[] args) {
+		//1.指定数组
+		int[] arr = {1,2,3,2};
+		//2.指定要查找的数字
+		//int key = 2;
+		int key = 5;
+		//3.查找指定数字在数组中出现的位置
+		getIndex(arr, key);
+	}
+	
+	/*
+	 * 查找指定数字在数组中出现的位置
+	 * 指定方法的名称：getIndex
+	 * 指定方法的参数：int[] arr, int key
+	 * 指定方法的返回值：void
+	 */
+	public static void getIndex(int[] arr, int key){
+		boolean isFind = false; //记录在数组中是否找到了key
+		
+		//数组[1232]要查找的数是2 则方法内部会打印索引值 1 ,3 
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] == key) {
+				System.out.print(i + "  ");
+				//更新isFind的值为true
+				isFind = true;
+			}
+		}
+		//数组[1232]要查找的数是5 则方法每部会打印 “数组中没有这个数字”
+		//1.定义一个boolean变量，记录是否找到了key , 找到了为true， 没找到为false
+		//2.通过循环判断是否找到了key，若找到了把变量设置为true
+		//3.循环结束后，根据boolean变量的值，若为false，说明“数组中没有这个数字”
+		if (!isFind) {
+			System.out.println("数组中没有这个数字");
+		}
+	}
+
+}
+
+/*
+ * 定义一个方法,实现同时求出两个整数的加减乘除的结果,并同时把这个结果返回
+ */
+public class Task05 {
+	public static void main(String[] args) {
+		//1. 定义2个变量
+		int a =20;
+		int b = 5;
+		//2. 调用方法，实现得到加减乘除的结果
+		int[] result = getNums(a, b);
+		//3. 打印结果
+		System.out.println("两个整数的加减乘除的结果为：");
+		for (int i = 0; i < result.length; i++) {
+			System.out.println(result[i]);
+		}
+	}
+	
+	/*
+	 * 1.定义一个方法,实现同时求出两个整数的加减乘除的结果,并同时把这个结果返回
+	 * 指定方法的名称： getNums
+	 * 指定方法的参数： int a, int b
+	 * 指定方法的返回值： int[]
+	 */
+	public static int[] getNums(int a, int b){
+		//定义一个数组，存放加减乘除的结果
+		int[] arr = new int[4];
+		arr[0] = a+b;
+		arr[1] = a-b;
+		arr[2] = a*b;
+		arr[3] = a/b;
+		return arr;
+	}
+}
+
+import java.util.Scanner;
+import java.util.Arrays;
+
+/*
+ * 	1.键盘录入10个整数存入数组中
+	2.定义一个方法将奇数放在数组的左侧,偶数放在数组的右侧
+	3.定义一个方法打印原数组和处理后的数组
+ */
+public class Task01 {
+	public static void main(String[] args) {
+//		键盘录入10个整数存入数组中
+		Scanner sc = new Scanner(System.in);
+//		int[] arr = new int[10];
+//		for(int i = 0; i < arr.length; i++) {
+//			arr[i] = sc.nextInt();
+//		}
+		int[] arr = {1,2,3,4,5,6,7,8,9,10,10,1};
+		
+		print(arr);
+		swap(arr);
+		print(arr);
+		count(arr);
+	}
+	
+	/*
+	 * 打印数组
+	 */
+	public static void print(int[] arr) {
+		//shift + alt + m      将选中代码抽取到一个方法中
+		System.out.print("[");
+		for(int i = 0; i < arr.length; i++) {
+			if(i == arr.length -1) {
+				System.out.println(arr[i] + "]");
+			} else {
+				System.out.print(arr[i] + ", ");
+			}
+		}
+	}
+	
+	/*
+	 * 定义一个方法将奇数放在数组的左侧,偶数放在数组的右侧
+	 */
+	public static void swap(int[] arr) {
+		//定义变量 i 和 j用于检索 
+		int i = 0;
+		int j = arr.length - 1;
+		//循环检索
+		while(i < j) {//如果i < j 一直检索        //外层控制轮数
+			//j先从右往左检索
+			while(arr[j] % 2 == 0 && i < j) {//如果检索到偶数，就一直继续检索             //内层控制 i 和  j 移动的次数
+				j--;
+			}
+			while(arr[i] % 2 == 1   && i < j) {//如果检索到数，就一直继续检索 
+				i++;
+			}
+			int temp = arr[j];
+			arr[j] = arr[i];
+			arr[i] = temp;
+			
+		}
+	}
+	/**
+	 * 
+	 * @param arr int类型的数组
+	 * @param num 需要统计次数的数字
+	 * @return int 返回数字num在数组arr中出现的次数
+	 */
+	public static int count(int[] arr,int num) {
+		//定义计数器
+		int count = 0;
+		//遍历数组
+		for(int i = 0;i<arr.length;i++) {
+			if(num==arr[i]) {//如果数组当前元素和要统计的数字num的值相等
+				count++;//计数器+1
+			}
+		}
+		//返回count
+		return count;
+	}
+	
+	//输出这个数组中只出现一次的数字及个数
+	/**
+	 * 
+	 * @param arr int类型的数组
+	 * @return void 打印数组arr中只出现一次的数字及个数
+	 */
+	public static void count(int[] arr) {
+		int count = 0;//记录只出现一次的数字的个数
+		//遍历数组
+		for(int i = 0;i<arr.length;i++) {
+			if(count(arr,arr[i])==1) {//如果数组中当前元素在数组中出现的次数等于1
+				if(count==0){//说明出现了第一个出现一次的数字，要打印以下提示信息，以后再出现不用打印了
+					System.out.print("数组："+Arrays.toString(arr)+"中，只出现一次的数字包括：");	
+				}
+				System.out.print(arr[i]+" ");//打印该元素
+				count++;//计数器+1
+			}
+		}
+		System.out.println();
+		System.out.println("数组："+Arrays.toString(arr)+" 中只出现一次的数字的数量为："+count+" 个");
+	}
+}
+
+*
+ * 定义一个方法传入一个int类型数组，输出这个数组中每一个数字及其出现的个数
+	例如 传入数组[1,2,2,2,3,3,4,4,4,4]  
+		打印结果：
+			数字1出现了1次
+			数字2出现了3次…
+			
+			
+	如：原数组：		 int[] arr =   {1,2,2,2,3,3,4,4,4,4,22,0,0}  
+	 	记录出现的元素	 int[] ele =   {1,2,3,4,22,0}
+	 	记录元素出现的次数  int[] count = {1,3,2,4, 1,2}
+ */
+public class Task02 {
+	
+	public static void main(String[] args) {
+		int[] arr = {1,2,2,2,3,3,4,4,4,4,22,0,0};
+		
+		int[] ele = new int[arr.length];//记录出现的元素
+		ele[0] = arr[0]; //数字1
+		int index = 1; //已存到ele数组中元素数量
+		
+		int[] count = new int[arr.length];//记录元素出现的个数
+		count[0] = 1; //记录出现1次
+		
+		for (int i = 1; i < arr.length; i++) {
+			int element = arr[i];
+			//查找element元素在ele数组中是否存在
+			//存在，则元素出现个数+1， 
+			boolean isFind = false; 
+			for (int j = 0; j < index; j++) {
+				if (ele[j] == element) {
+					isFind = true;//说明已找到
+					count[j]++;//出现次数+1
+				}
+			}
+			if (!isFind) {//如果不存在，则元素存个ele数组中，并设置元素出现个数为1
+				ele[index] = element;
+				count[index] = 1;
+				index++;
+			}
+		}
+		
+		//打印结果：
+		for (int i = 0; i < index; i++) {
+			//数字1出现了1次
+			System.out.println("数字"+ele[i]+"出现了"+count[i]+"次");
+		}
+	} 
+}
+
+import java.util.Scanner;
+
+/*
+ * 分析以下需求，并用代码实现
+	1.键盘录入6个int类型的数据存数数组arr中
+	2.将arr数组中的内容反转
+	3.将翻转后的数组角标为奇数的互相交换 1和3换, 3和5换,以此类推
+	4.最后将数组最后一个角标为奇数的元素 和数组中第一个角标为奇数的元素交换
+	5.打印最终的数组(实现了1-4步之后的数组)
+	6.如：用户输入的6个int数字为[1,2,3,4,5,6],最后输出的结果为[6, 5, 4, 1, 2, 3]
+ */
+public class Task03 {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		//创建数组
+		int[] arr = new int[6];
+		//循环给数组的每一个元素键盘录入赋值
+		for(int i = 0; i < arr.length; i++) {
+			arr[i] = sc.nextInt();
+		}
+		reverse(arr);
+		swap(arr);
+		swapStart2End(arr);
+		print(arr);
+	}
+	public static void print(int[] arr) {
+		//shift + alt + m      将选中代码抽取到一个方法中
+		System.out.print("[");
+		for(int i = 0; i < arr.length; i++) {
+			if(i == arr.length -1) {
+				System.out.println(arr[i] + "]");
+			} else {
+				System.out.print(arr[i] + ", ");
+			}
+		}
+	}
+	
+	/*
+	 * 反转数组
+	 */
+	public static void reverse(int[] arr) {
+		for(int i = 0 ; i < arr.length/2; i++) {
+			int temp = arr[i];
+			arr[i] = arr[arr.length - 1 - i];
+			arr[arr.length - 1 - i] = temp;
+		}
+	}
+	
+	/*
+	 * 将翻转后的数组角标为奇数的互相交换 1和3换, 3和5换,以此类推
+	 * 遍历数组。判断索引是不是奇数，如果是奇数和和当前索引+2的元素交换
+	 */
+	public static void swap(int[] arr) {
+		for(int i = 0; i < arr.length - 2; i++) {
+			if(i % 2 == 1) {
+				int temp = arr[i];
+				arr[i] = arr[i + 2];
+				arr[i + 2] = temp;
+			}
+		}
+	}
+	
+	/*
+	 * 将数组最后一个角标为奇数的元素 和数组中第一个角标为奇数的元素交换
+	 */
+	public static void swapStart2End(int[] arr) {
+		//第一个为奇数的索引
+		int startIndex = 1;
+		// 最后一个
+		int endIndex = 0;
+		//如果数组长度为偶数，最大奇数索引就是最后一个索引
+		if(arr.length % 2 == 0) {
+			endIndex = arr.length - 1;
+		} else {
+			endIndex = arr.length - 2;
+		}
+		
+		int temp = arr[startIndex];
+		arr[startIndex] = arr[endIndex];
+		arr[endIndex] = temp;
+	}
+}
+
+/*
+ * 分析以下需求，并用代码实现
+	1.求1-500之内能同时被2，5，7整除的所有数及个数并5个一行打印
+	2.求100以内能被3整除的数加上能被5整除的数的和
+ */
+public class Task04 {
+	public static void main(String[] args) {
+//		fun1();
+		fun2();
+	}
+	/*
+	 * 求1-500之内能同时被2，5，7整除的所有数及个数并5个一行打印
+	 */
+	public static void fun1() {
+		int count = 0;
+		for(int i = 1; i <= 500;i++) {
+			//判断这个数能否同时被2，5，7整除
+			if(i % 2 == 0 && i % 5 == 0 && i % 7 == 0) {
+				count++;//把计数器+1
+				//先打印
+				System.out.print(i+" ");
+				if(count % 5 == 0) {
+					System.out.println();
+				}
+			}
+		}
+		System.out.println();
+		System.out.println("总个数为 "+ count);
+	}
+	/*
+	 * 2.求100以内能被3整除的数加上能被5整除的数的和
+	 *        之间判断 能否 被3 || 被5 整除     
+	 */
+	public static void fun2() {
+		int sum = 0;
+		for(int i = 0; i < 100; i++) { // 15
+			if(i % 3==0 || i % 5 == 0) {
+				sum += i;
+			}
+		}
+		System.out.println(sum);
+	}
+}
+
+/*
+ * 分析以下需求，并用代码实现
+	有一分数序列：2/1，3/2，5/3，8/5，13/8，21/13... 定义一个方法求出这个数列的前20 项之和。
+ */
+public class Task05 {
+	public static void main(String[] args) {
+		double sum = getSum();
+		System.out.println(sum);
+	}
+	
+	public static double getSum() {
+		//2/1，3/2，5/3，8/5，13/8，21/13
+		//分子     2 3 5 8 13 21
+		//分母     1 2 3 5 8 13
+		//定义两个数组，一个存储分子，另一个存储分母
+		int[] fzArr = new int[20];
+		int[] fmArr = new int[20];
+		
+		fzArr[0] = 2;
+		fzArr[1] = 3;
+		fmArr[0] = 1;
+		fmArr[1] = 2;
+		//求分子分母每一项
+		for(int i = 2; i < fzArr.length; i++) {
+			fzArr[i] = fzArr[i - 1] + fzArr[i - 2];
+			fmArr[i] = fmArr[i - 1] + fmArr[i - 2];
+		}
+		//定义求和变量
+		double sum = 0;
+		
+		for(int i = 0; i < fzArr.length; i++) {
+			sum += fzArr[i]/(fmArr[i] + 0.0);
+		}
+		return sum;
+	}
+}
+
+
+import java.util.Random;
+
+/*
+ * 分析以下需求，并用代码实现
+	1.创建两个长度为10的数组，数组内元素为随机生成的、不重复的 1-100之间的整数.
+	2.定义一个方法，传入两个数组，方法中将两个数组不同的元素拼接成一个字符串，并且将该字符串以及字符串的长度输出到控制台上；
+		如果没有则输出"对不起两个数组的所有元素均相同"
+		
+	思路
+		1.定义一个方法，用来为数组生成不重复的随机数赋值，方法参数是数组类型
+			循环生成随机数，每生成一个，就判断一下这个数组中是否包含这个数，如果不包含，就赋值，如果包含，就重新生成。
+			
+	第二小问思路：
+			先遍历其中一个数组，拿其中的每一个元素去判断在另一个数组中是否存在，如果存在不拼接，如果不存在就拼接
+			再遍历另外一个数组，拿其中的每一个元素去判断在另一个数组中是否存在，如果存在不拼接，如果不存在就拼接
+ */
+public class Task06 {
+	public static void main(String[] args) {
+		int[] arr1 = new int[10];
+		int[] arr2 = new int[10];
+		createRandomElment(arr1);
+		createRandomElment(arr2);
+		printArr(arr1);
+		printArr(arr2);
+		pinJie(arr1, arr2);
+	}
+	/*
+	 * 遍历数组
+	 */
+	public static void printArr(int[] arr) {
+		System.out.print("[");
+		for(int i = 0; i < arr.length; i++) {
+			if(i == arr.length - 1) {
+				System.out.println(arr[i] + "]");
+			} else {
+				System.out.print(arr[i]+", ");
+			}
+		}
+	}
+	/*
+	 * 为数组生成不重复的随机数
+	 */
+	public static void createRandomElment(int[] arr) {
+		Random r = new Random();
+		//定义一个变量，用来当做已经赋值的索引
+		int index = 0;
+		//判断如果这个索引是 arr.length - 1。代表已经赋值满了，就结束循环
+		while(index < arr.length) {//如果index < 数组的长度，代表赋值没有满
+			//生成随机数
+			int num = r.nextInt(100) + 1;
+			//判断一下这个数组中是否包含刚刚生成的随机数
+			boolean flag = exist(arr, num);
+			if(!flag) {//如果不存在
+				arr[index] = num;
+				index++;
+			}
+		}
+	}
+	/*
+	 * 判断一下这个数组中是否包含这个数
+	 * 参数：数组，要判断的数
+	 * 遍历这个数组
+	 * 	判断当前遍历到的数是否== 我们要判断的数，如果相等，直接返回 true
+	 * 		           如果不等于，就一直继续遍历判断
+	 * 如果遍历完了都没有找到，返回false
+	 */
+	public static boolean exist(int[] arr, int num) {
+		for(int i = 0; i < arr.length; i++) {
+			if(arr[i] == num) {
+				return true;
+			}
+		}
+		return false;
+	}
+	/*
+	 * 
+	 * 定义一个方法，传入两个数组，方法中将两个数组不同的元素拼接成一个字符串，并且将该字符串以及字符串的长度输出到控制台上；
+		如果没有则输出"对不起两个数组的所有元素均相同"
+	 * 第二小问思路：
+			先遍历其中一个数组，拿其中的每一个元素去判断在另一个数组中是否存在，如果存在不拼接，如果不存在就拼接
+			再遍历另外一个数组，拿其中的每一个元素去判断在另一个数组中是否存在，如果存在不拼接，如果不存在就拼接
+	 */
+	/*
+	 * 方法两个参数 int[]  int[]
+	 */
+	
+	public static void pinJie(int[] arr1, int[] arr2) {
+		//定义字符串类型变量，用来拼接
+		String str = "";
+//		先遍历其中一个数组，拿其中的每一个元素去判断在另一个数组中是否存在，如果存在不拼接，如果不存在就拼接
+		for(int i = 0; i < arr1.length; i++) {
+			//判断当前遍历到的元素是否在另一数组中存在
+			boolean flag = exist(arr2,arr1[i]);
+			if(!flag) {//如果不存在，就拼接
+				str = str + arr1[i] + " ";
+			}
+		}
+		//再遍历另外一个数组，拿其中的每一个元素去判断在另一个数组中是否存在，如果存在不拼接，如果不存在就拼接
+		for(int i = 0; i < arr2.length; i++) {
+			//判断当前遍历到的元素是否在另一数组中存在
+			boolean flag = exist(arr1,arr2[i]);
+			if(!flag) {//如果不存在，就拼接
+				str = str + arr2[i] + " ";
+			}
+		}
+		System.out.println(str);
+		if(str.length() == 0) {
+			System.out.println("不存在");
+		} else {
+			System.out.println("长度是" + str.length());
+		}
+	}
+}
+
+import java.util.Random;
+import java.util.Scanner;
+
+/*
+ * 分析以下需求，并用代码实现		
+	1.提示用户输入10个整数，存入到int数组中；根据以下要求实现相关功能
+	2.提示用户输入一个数字作为数组索引，查找数组中该索引对应的元素，
+		（需要判断输入的数字是否在0-9之间包含临界值，如果该数字不符合要求则随机生成一个符合要求的索引）
+	3.将a中得到的索引对应的元素的左右两边元素进行互换，若对应的元素是第一个或最后一个则不做任何操作
+ */
+public class Task07 {
+	public static void main(String[] args) {
+		//创建数组
+		int[] arr = new int[10];
+		//键盘录入给数组元素赋值
+		Scanner sc = new Scanner(System.in);
+		for(int i = 0; i < arr.length; i++) {
+			System.out.println("请您键盘录入第"+ (i + 1) + "个数");
+			arr[i] = sc.nextInt();
+		}
+		//要获得的索引
+		int index = 9;
+		//调用获得数组元素方法
+		int elment = getArrayElment(arr, index);
+		System.out.println("获得到的元素为" + elment);
+		//
+		swap(arr, index);
+		printArr(arr);
+	}
+	
+	/*
+	 * 提示用户输入一个数字作为数组索引，查找数组中该索引对应的元素，
+	 * 参数 arr
+	 * 参数 index
+	 */
+	public static int getArrayElment(int[] arr,int index) {
+		//创建随机数对象
+		Random r = new Random();
+		//判断索引是否在0-9 之间
+		if(index > 9 || index < 0) {//如果没有在0到9之间
+//			随机生成一个0到9的数字赋值给索引变量
+			index = r.nextInt(10);
+		}
+		//返回这个索引位置的变量
+		return arr[index];
+	}
+	
+	/*
+	 * 将上步中得到的索引对应的元素的左右两边元素进行互换，若对应的元素是第一个或最后一个则不做任何操作
+	 * 参数 arr 要交换的数组
+	 * 参数 index 索引对应的元素的左右两边元素进行互换
+	 */
+	public static void swap(int[] arr, int index) {
+		//如果是第一个或者最后一个元素，不交换
+		if(index == 0 || index == arr.length - 1) {
+			return;//直接返回，结束swap方法
+		}
+		//将索引两边的元素进行交换
+		int temp = arr[index - 1];
+		arr[index - 1] = arr[index + 1];
+		arr[index + 1] = temp;
+	}
+	
+	/*
+	 * 遍历数组
+	 */
+	public static void printArr(int[] arr) {
+		System.out.print("[");
+		for(int i = 0; i < arr.length; i++) {
+			if(i == arr.length - 1) {
+				System.out.println(arr[i] + "]");
+			} else {
+				System.out.print(arr[i]+", ");
+			}
+		}
+	}
+}
+
+
