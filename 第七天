@@ -1,0 +1,428 @@
+
+import java.util.Scanner;
+
+/*
+ * 需求说明：请用户输入一个“QQ号码”，我们来判断这个QQ号码是否正确。
+		要求：使用方法来完成判断功能。
+		定义方法：checkQQ (String qq)方法内实现验证。
+		验证规则：
+			1)	必须是5—12位数字；
+			2)	首位不能是0；
+ */
+public class Task01 {
+	public static void main(String[] args) {
+		//1.键盘输入一个qq号码字符串
+		Scanner sc = new Scanner(System.in);
+		String qq = sc.next();
+		//2.调用checkQQ (String qq)方法内实现验证。
+		boolean isOK = checkQQ(qq);
+		//3.打印验证的结果
+		System.out.println("这个QQ号码是否正确:" + isOK);
+	}
+	
+	/*
+	 * 定义方法：checkQQ (String qq)方法内实现验证
+	 * 指定方法的名称：checkQQ
+	 * 指定方法的参数：String qq
+	 * 指定方法的返回值：boolean
+	 */
+	public static boolean checkQQ(String qq){
+		//1.验证字符串的长度5-12位之间；
+		if (qq.length()<5 || qq.length()>12 ) {
+			return false; //说明qq号码的长度不正确
+		}
+		//2.验证首位字符不能是字符0；只能是字符'1'--'9'
+		if (qq.charAt(0) == '0') {
+			return false;
+		}
+		//3.验证字符串中的每个字符都必须是数字字符‘0’-‘9’之间的字符
+		for (int i = 0; i < qq.length(); i++) {
+			char ch = qq.charAt(i);
+			//判断字符是否在 数字字符‘0’-‘9’之间的字符
+			if (ch<'0' || ch>'9') {
+				return false;//说明qq号码中含有非数字字符
+			}
+		}
+		//4.上述验证都通过了，说明qq号码是正确的
+		return true;
+	}
+}	
+
+
+/*
+ * 	需求说明：定义如下字符串：
+		String str = “javajfiewjavajfiowfjavagkljjava”;
+	请分别定义方法统计出：
+		1.	字符串中：字符j的数量
+		2.	字符串中：字符串java的数量
+ */
+public class Task02 {
+	public static void main(String[] args) {
+		//1.定义字符串
+		String str = "javajfiewjavajfiowfjavagkljjava";
+		//2.调用方法，得到字符j的数量
+		int count = getCount(str, 'j');
+		int count2 = getCount(str, "java");//得到字符j的数量
+		//3.打印数量
+		System.out.println("字符j的数量:" + count);
+		System.out.println("字符串java的数量:" + count2);
+	}
+	
+	/*
+	 * 需求：计算大字符串中包含指定字符、字符串的数量
+	 * 指定方法的名称： getCount
+	 * 指定方法的参数: String str, char ch
+	 * 指定方法的返回值： int
+	 */
+	public static int getCount(String str, char ch){
+		//1.定义一个变量，用来记录查找到ch的次数
+		int count = 0;
+		//2.查找str字符串中出现ch字符的次数
+		int index = 0;
+		while ((index = str.indexOf(ch)) != -1) {//说明查找到了字符ch出现的位置
+			count++; //出现的次数累加1
+			str = str.substring(index + 1);//更新str字符串中的内容
+		}
+		return count;
+	}
+	
+	/*
+	 * 需求：计算大字符串中包含指定字符、字符串的数量
+	 * 指定方法的名称： getCount
+	 * 指定方法的参数: String str, String ch
+	 * 指定方法的返回值： int
+	 */
+	public static int getCount(String str, String ch){
+		//1.定义一个变量，用来记录查找到ch的次数
+		int count = 0;
+		//2.查找str字符串中出现ch字符的次数
+		int index = 0;
+		while ((index = str.indexOf(ch)) != -1) {//说明查找到了字符ch出现的位置
+			count++; //出现的次数累加1
+			str = str.substring(index + 1);//更新str字符串中的内容
+		}
+		return count;
+	}
+}	
+
+import java.util.Scanner;
+
+public class Task01 {
+	private static User[] userArray = new User[3];
+	private static int index = 0;// 当前数组可存储的位置，如果等于userArray.length -1，说明用户已满，禁止注册
+	
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		while (true) {
+			System.out.println("1.注册     2.登陆     3.退出");
+			int op = sc.nextInt();
+			switch (op) {
+			case 1:
+				regist();
+				break;
+			case 2:
+				login();
+				break;
+			case 3:
+				System.out.println("谢谢使用，拜拜！");
+				System.exit(0);
+			default:
+				break;
+			}
+		}
+	}
+
+	// 注册
+	private static void regist() {
+		// 验证用户是否已满
+		if (index >= userArray.length) {
+			System.out.println("用户已满，禁止注册！");
+			return;
+		}
+		Scanner sc = new Scanner(System.in);
+		System.out.println("请输入用户名：");
+		String userName = sc.next().trim();
+		System.out.println("请输入登录密码：");
+		String pwd = sc.next().trim();
+		System.out.println("请输入确认密码：");
+		String birthDay = sc.next().trim();
+		System.out.println("请输入爱好(多个用逗号隔开)：");
+		String hobby = sc.next().trim();
+
+		// 验证通过，写入到数组
+		User user = new User(userName, pwd, birthDay, hobby);
+		userArray[index] = user;
+		// 将索引增1，以备下一次存储
+		index++;
+		// 成功提示
+		System.out.println("注册成功！");
+	}
+
+	// 登录
+	private static void login() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("请输入登录名：");
+		String userName = sc.next();
+		System.out.println("请输入密码：");
+		String pwd = sc.next();
+
+		// 验证
+		for (int i = 0; i < userArray.length; i++) {
+			if (userName.equals(userArray[i].getUsername()) && pwd.equals(userArray[i].getPassword())) {
+				System.out.println("登录成功，以下是您的个人信息：");
+				System.out.println("用户名：" + userArray[i].getUsername() + " , 密码：" + userArray[i].getPassword() + " ,出生日期：" + userArray[i].getBrithday()
+						+ " ,爱好：" + userArray[i].getHobby());
+				return;
+			}
+		}
+		System.out.println("登录失败，用户名或密码错误！");
+
+	}
+}
+
+
+import java.util.Scanner;
+
+/*
+ * 分析以下需求，并用代码实现
+	1.键盘录入一个大字符串,再录入一个小字符串
+	2.统计小字符串在大字符串中出现的次数
+	3.代码运行打印格式:
+		请输入大字符串:woaiheima,heimabutongyubaima,wulunheimahaishibaima,zhaodaogongzuojiushihaoma
+		请输入小字符串:heima
+		控制台输出:小字符串heima,在大字符串woaiheima,heimabutongyubaima,wulunheimahaishibaima,zhaodaogongzuojiushihaoma中共出现3次
+ */
+public class Task02 {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		// 1.键盘录入一个大字符串,再录入一个小字符串
+		System.out.print("请输入大字符串:");
+		String big = sc.nextLine();
+		System.out.print("请输入小字符串:");
+		String small = sc.nextLine();
+		// 2.统计小字符串在大字符串中出现的次数
+		int count = getCount(big, small);
+		// 3.代码运行打印格式:
+		System.out.println("小字符串"+ small +",在大字符串"+ big +"中共出现"+ count +"次");
+	}
+
+	/*
+	 * 方法功能：统计小字符串在大字符串中出现的次数
+	 * 参数：big 代表大字符串
+	 * 参数：small 代表小字符串
+	 * 返回值：小字符串在大字符串中出现的次数
+	 */
+	public static int getCount(String big, String small) {
+		int index = 0;
+		int count = 0;
+		/*
+		 * indexOf(String str, int fromIndex) 
+		 * 该方法作用：从fromIndex位置开始查找，字符串str第一次出现的位置；若没找到，放回-1
+		 */
+		while((index = big.indexOf(small, index)) != -1){
+			index++;
+			count++;
+		}
+		return count;
+	}
+}
+
+import java.util.Scanner;
+
+/*
+	分析以下需求,并用代码实现
+		1.键盘录入一个源字符串由字符串变量srcStr接收
+		2.键盘录入一个要删除的字符串由字符串变量delStr接收
+		3.要求
+			删除该字srcStr符串中的所有delStr字符串（最终的字符串中不能包含delStr），要求打印删除后的结果以及删除了几个delStr字符串
+		4.代码运行打印格式:
+			请输入源字符串:java woaijava,i like jajavava i enjoy java
+			请输入要删除的字符串:java
+			控制台输出结果:源字符串中总共包含:4 个 java ,删除java后的字符串为: woai,i like  i enjoy
+
+ */
+public class Task03 {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		// 1.键盘录入一个源字符串由字符串变量scrStr接收
+		System.out.print("请输入源字符串:");
+		String srcStr = sc.nextLine();
+		// 2.键盘录入一个要删除的字符串由字符串变量delStr接收
+		System.out.print("请输入要删除的字符串:");
+		String delStr = sc.nextLine();
+		// 3.删除该字scrStr符串中的所有delStr字符串（最终的字符串中不能包含delStr），要求打印删除后的结果以及删除了几个delStr字符串
+		printCount(srcStr, delStr);
+		
+	}
+
+	//删除该字scrStr符串中的所有delStr字符串（最终的字符串中不能包含delStr），要求打印删除后的结果以及删除了几个delStr字符串
+	private static void printCount(String srcStr, String delStr) {
+		//删除后的结果
+		String resultStr = srcStr.replace(delStr, "");
+		//删除了几个delStr字符串
+		int count = (srcStr.length() - resultStr.length()) / delStr.length();
+		
+		System.out.println("源字符串中总共包含:"+ count +" 个 "+ delStr +" ,删除"+ delStr +"后的字符串为: "+ resultStr);
+	}
+}
+
+import java.util.Scanner;
+
+/*
+	分析以下需求,并用代码实现
+		1.键盘录入一个字符串
+		2.将该字符串变成字符数组(不能使用toCharArray()方法)
+		3.将字符数组中的所有大写字母变成小写字母(不能使用toLowerCase()方法)
+		4.如果第一位和最后一位的内容不相同,则交换
+		5.将字符数组中索引为偶数的元素变成'~'
+		6.打印数组元素的内容
+ */
+public class Task04 {
+	public static void main(String[] args) {
+		// 1.键盘录入一个字符串
+		Scanner sc = new Scanner(System.in);
+		String str = sc.nextLine();
+		// 2.将该字符串变成字符数组(不能使用toCharArray()方法)
+		char[] chs = new char[str.length()];
+		for (int i = 0; i < str.length(); i++) {
+			chs[i] = str.charAt(i);
+			// 3.将字符数组中的所有大写字母变成小写字母(不能使用toLowerCase()方法)
+			if (chs[i]>='A' && chs[i] <='Z' ) {
+				chs[i] += 32;
+			}
+		}
+		// 4.如果第一位和最后一位的内容不相同,则交换
+		if (chs[0] != chs[chs.length-1]) {
+			char temp = chs[0];
+			chs[0] = chs[chs.length-1];
+			chs[chs.length-1] = temp;
+		}
+		
+		for (int i = 0; i < chs.length; i++) {
+			// 5.将字符数组中索引为偶数的元素变成'~'
+			if (i%2==0) {
+				chs[i] = '~';
+			}
+			// 6.打印数组元素的内容
+			System.out.print(chs[i] + " ");
+		}
+	}
+}
+
+import java.util.Random;
+
+/*
+	分析以下需求,并用代码实现
+		1.定义String getStr(char[] chs)方法
+			功能描述：获取长度为5的随机字符串，字符串由随机的4个大写英文字母和1个0-9之间（包含0和9）的整数组成
+		2.定义main方法，方法内完成：
+			(1)定义长度为26，元素值为26个大写英文字母的数组chs
+			(2)传递数组chs调用getStr(char[] chs)方法，获取返回值,并在控制台打印返回值
+ */
+public class Task05 {
+	public static void main(String[] args) {
+		// 1.定义长度为26，元素值为26个大写英文字母的数组chs
+		char[] chs = new char[26];
+		for (int i = 0; i < chs.length; i++) {
+			chs[i] = (char)('A' + i);
+		}
+		// 2.传递数组chs调用getStr(char[] chs)方法，获取返回值,并在控制台打印返回值
+		String result = getStr(chs);
+		System.out.println(result);
+	}
+
+	/*
+	 * 功能描述：获取长度为5的随机字符串，字符串由随机的4个大写英文字母和1个0-9之间（包含0和9）的整数组成
+	 * String getStr(char[] chs)
+	 */
+	public static String getStr(char[] chs) {
+		Random r = new Random();
+		//1个0-9之间（包含0和9）的整数
+		String result = r.nextInt(10) + "";
+		//随机的4个大写英文字母
+		for (int i = 0; i < 4; i++) {
+			int index = r.nextInt(chs.length);
+			result += chs[index];
+		}
+		return result;
+	}
+	
+	
+}
+
+/*
+ * 分析以下需求，并用代码实现
+	1.定义如下方法public static String getPropertyGetMethodName(String property)
+		功能描述:
+			(1)该方法的参数为String类型，表示用户给定的成员变量的名字，返回值类型为String类型，返回值为成员变量对应的get方法的名字
+			(2)如：用户调用此方法时给定的参数为"name",该方法的返回值为"getName"
+	2.定义如下方法public static String getPropertySetMethodName(String property)
+		功能描述:
+			(1)该方法的参数为String类型，表示用户给定的成员变量的名字，返回值类型为String类型，返回值为成员变量对应的set方法的名字
+			(2)如：用户调用此方法时给定的参数为"name",该方法的返回值为"setName"
+ */
+public class Task06 {
+	public static void main(String[] args) {
+		String property = "name";
+		String getPropertyMethodName = getPropertyGetMethodName(property);
+		String setPropertyMethodName = getPropertySetMethodName(property);
+		System.out.println(getPropertyMethodName);
+		System.out.println(setPropertyMethodName);
+	}
+	public static String getPropertyGetMethodName(String property) {
+		//property.substring(0, 1).toUpperCase():将属性的第一个字母变成大写
+		//property.substring(1):获取属性的第一个字母之后的内容(不包含第一个字母)
+		//"get"+....:前面拼接get
+		return "get"+ property.substring(0, 1).toUpperCase()+property.substring(1);
+	}
+	public static String getPropertySetMethodName(String property) {
+		//property.substring(0, 1).toUpperCase():将属性的第一个字母变成大写
+		//property.substring(1):获取属性的第一个字母之后的内容(不包含第一个字母)
+		//"set"+....:前面拼接set
+		return "set"+ property.substring(0, 1).toUpperCase()+property.substring(1);
+	}
+}
+
+public class User {
+	private String username;//用户名
+	private String password;//用户密码
+	private String brithday;//出生日期
+	private String hobby;//爱好
+	public User() {
+		super();
+	}
+	public User(String username, String password, String brithday, String hobby) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.brithday = brithday;
+		this.hobby = hobby;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getBrithday() {
+		return brithday;
+	}
+	public void setBrithday(String brithday) {
+		this.brithday = brithday;
+	}
+	public String getHobby() {
+		return hobby;
+	}
+	public void setHobby(String hobby) {
+		this.hobby = hobby;
+	}
+	
+	
+}
+
